@@ -15,87 +15,124 @@ app.use(express.static(__dirname + "/public"));
 
 let music = [
     {
-        id: 1,
         name: "That's what makes you beautiful",
-        genre: "pop"
+        genre: "pop",
+        month: "September",
+        year: "2011",
     },
     {
-        id: 2,
         name: "Night Changes",
-        genre: "pop"
+        genre: "pop",
+        month: "November",
+        year: "2014"
+
     },
     {
-        id: 3,
         name: "Lose Yourself",
-        genre: "hip hop"
+        genre: "hip hop",
+        month: "October",
+        year: "2002"
     },
     {
-        id: 4,
+         
         name: "In da Club",
-        genre: "hip hop"
+        genre: "hip hop",
+        month: "January",
+        year: "2003"
     },
     {
-        id: 5,
+         
         name: " Just Wanna Rock",
-        genre: "rap"
+        genre: "rap",
+        month: "October",
+        year: "2022"
     },
     {
-        id: 6,
+        
         name: "Rap God",
-        genre: "rap"
+        genre: "rap",
+        month: "October",
+        year: "2013"
     },
     {
-        id: 7,
+        
         name: "The Four Seasons",
-        genre: "classical"
+        genre: "classical",
+        month: "Unknown",
+        year: "1725 "
     },
     {
-        id: 8,
+  
         name: "Requiem in D Minor",
-        genre: "classical"
+        genre: "classical",
+        month: "December",
+        year: "1791"
     },
     {
-        id: 9,
+      
         name: "Killer Queen",
-        genre: "rock"
+        genre: "rock",
+        month: "October",
+        year: "1974"
     },
     {
-        id: 10,
+ 
         name: "Made in Heaven",
-        genre: "rock"
+        genre: "rock",
+        month: "November",
+        year: "1995"
     },
     {
-        id: 11,
+   
         name: "Fly Me To The Moon",
-        genre: "jazz"
+        genre: "jazz",
+        month: "April",
+        year: "1954"
     },
     {
-        id: 12,
+  
         name: "What a Wonderful World",
-        genre: "jazz"
+        genre: "jazz",
+        month: "September",
+        year: "1967"
     },
     {
-        id: 13,
+   
         name: "Cross Road Blues",
-        genre: "blues"
+        genre: "blues",
+        month: "November",
+        year: "20"
     },
     {
-        id: 14,
+     
         name: "Slow Blues",
-        genre: "blues"
+        genre: "blues",
+        month: "May",
+        year: "1937"
     },
     {
-        id: 15,
+     
         name: "Clarity",
-        genre: "electronic"
+        genre: "electronic",
+        month: "November",
+        year: "2012"
     },
     {
-        id: 16,
+     
         name: "Faded",
-        genre: "electronic"
+        genre: "electronic",
+        month: "December",
+        year: "2015"
     },
 ]
 
+// uses the index as the value of the id
+music = music.map((obj, index) =>
+{
+    return ({id: index + 1, ...obj})
+})
+
+console.log(music)
 //=========== ROUTES FOR HTTP GET REQUESTS ==========
 app.get('/', (req, res) => {
 
@@ -117,16 +154,17 @@ app.get('/api/music/:id', (req, res) => {
     return res.send(musicList);
 
 });
+app.get('/api/music/:month')
+{
+
+}
 
 
 
 //=========== ROUTES FOR HTTP POST REQUESTS ==========
 app.post('/api/post', (req, res) => {
 
-    console.log(req.body.songName);
-    music.push({name: req.body.songName, artist: req.body.songGenre});
-    res.send(req.body);
-
+    
 
 });
 
@@ -142,14 +180,9 @@ app.put('/api/put', (req, res) => {
 
 
 //=========== ROUTES FOR HTTP DELETE REQUESTS ==========
-app.delete('/api/delete', (req, res) => {
+app.delete('/api/delete/:id', (req, res) => {
 
-    if (req.query.name)
-    {
-        // filter array to only include songs without the query name
-        music = music.filter(s => s.name !== req.query.name);
-        res.send("Successfully deleted")
-    }
+    
     res.send("Didn't delete the song")
 });
 
