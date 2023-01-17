@@ -127,6 +127,7 @@ let music = [
 ]
 
 // uses the index as the value of the id
+// adds a unique id to each of the elements in the array
 music = music.map((obj, index) =>
 {
     return ({id: index + 1, ...obj})
@@ -134,6 +135,7 @@ music = music.map((obj, index) =>
 
 
 //=========== ROUTES FOR HTTP GET REQUESTS ==========
+// Default page
 app.get('/', (req, res) => {
 
     res.sendFile("/index.html");
@@ -142,6 +144,7 @@ app.get('/', (req, res) => {
 /**
  * Get a list of songs based on the query parameters on the url
  * Query params are month, year. Can be either one, both, or none
+ * Example: http://localhost:4000/api/music/?month=September&year=2011
  * Defaults to all the songs in the current music array
  */
 app.get('/api/music', (req, res) => {
@@ -166,7 +169,10 @@ app.get('/api/music', (req, res) => {
     res.send(musicList);
 
 });
-
+/**
+ * Returns a song info based on the id # in the url
+ * Example: http://localhost:4000/<id> 
+ */
 app.get('/api/music/:id', (req, res) => {
     const musicList = music.find(s => s.id === parseInt(req.params.id));
     if (!musicList)
@@ -201,7 +207,7 @@ app.put('/api/put', (req, res) => {
 
 //=========== ROUTES FOR HTTP DELETE REQUESTS ==========
 app.delete('/api/delete/:id', (req, res) => {
-
+    
     
     res.send("Didn't delete the song")
 });
