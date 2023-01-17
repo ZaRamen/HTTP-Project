@@ -58,7 +58,7 @@ let music = [
         
         name: "The Four Seasons",
         genre: "classical",
-        month: "Unknown",
+        month: "January",
         year: "1725 "
     },
     {
@@ -100,15 +100,15 @@ let music = [
    
         name: "Cross Road Blues",
         genre: "blues",
-        month: "November",
-        year: "20"
+        month: "May ",
+        year: "1937"
     },
     {
      
         name: "Slow Blues",
         genre: "blues",
-        month: "May",
-        year: "1937"
+        month: "November ",
+        year: "1941"
     },
     {
      
@@ -132,20 +132,43 @@ music = music.map((obj, index) =>
     return ({id: index + 1, ...obj})
 })
 
-console.log(music)
+
 //=========== ROUTES FOR HTTP GET REQUESTS ==========
 app.get('/', (req, res) => {
 
     res.sendFile("/index.html");
 
 });
+/**
+ * Get a list of songs based on the query parameters on the url
+ * Query params are month, year. Can be either one, both, or none
+ * Defaults to all the songs in the current music array
+ */
 app.get('/api/music', (req, res) => {
 
-    res.send(music);
+    // default should be all the songs 
+    let musicList = music;
+    if (req.query.month)   
+    {
+        musicList = music.filter(s => s.month === req.query.month);
+    }
+    else if (req.query.year)
+    {
+        musicList = music.filter(s => s.year === req.query.year);
+    } 
+    
+    // if query couldn't find anything
+    if (musicList.length == 0)
+    {
+        res.status(404).send("Couldn't find songs based on the query");
+        return;
+    }
+    res.send(musicList);
 
 });
+
 app.get('/api/music/:id', (req, res) => {
-    const musicList = music.find(c => c.id === parseInt(req.params.id));
+    const musicList = music.find(s => s.id === parseInt(req.params.id));
     if (!musicList)
     {
         res.status(404).send("Song not found");
@@ -154,10 +177,7 @@ app.get('/api/music/:id', (req, res) => {
     return res.send(musicList);
 
 });
-app.get('/api/music/:month')
-{
 
-}
 
 
 
