@@ -99,7 +99,7 @@ let music = [
 //=========== ROUTES FOR HTTP GET REQUESTS ==========
 app.get('/', (req, res) => {
 
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile("/index.html");
 
 });
 app.get('/api/music', (req, res) => {
