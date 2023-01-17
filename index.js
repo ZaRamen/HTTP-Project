@@ -128,10 +128,16 @@ let music = [
 
 // uses the index as the value of the id
 // adds a unique id to each of the elements in the array
-music = music.map((obj, index) =>
+
+function setIndexes()
 {
-    return ({id: index + 1, ...obj})
-})
+     music = music.map((obj, index) =>
+    {
+        return ({id: index + 1, ...obj})
+    })
+}
+
+setIndexes();
 
 
 //=========== ROUTES FOR HTTP GET REQUESTS ==========
@@ -188,9 +194,34 @@ app.get('/api/music/:id', (req, res) => {
 
 
 //=========== ROUTES FOR HTTP POST REQUESTS ==========
-app.post('/api/post', (req, res) => {
+app.post('/api/music', (req, res) => {
 
-    
+  
+
+    if (req.body.name.length < 3)
+    {
+        res.status(404).send("Name must have more than 3 characters");
+        return;
+    }
+    if (req.body.genre.length < 3)
+    {
+        res.status(404).send("genre must have more than 3 characters");
+        return;
+    }
+
+    let song = {
+        name: req.body.name,
+        genre: req.body.genre
+    }
+    music.push(
+        song
+    );
+
+    setIndexes();
+
+
+    res.send(music[music.length - 1]);
+
 
 });
 
@@ -198,7 +229,7 @@ app.post('/api/post', (req, res) => {
 
 //=========== ROUTES FOR HTTP PUT REQUESTS ==========
 
-app.put('/api/put', (req, res) => {
+app.put('/api/music/:id', (req, res) => {
 
    
 
@@ -206,7 +237,7 @@ app.put('/api/put', (req, res) => {
 
 
 //=========== ROUTES FOR HTTP DELETE REQUESTS ==========
-app.delete('/api/delete/:id', (req, res) => {
+app.delete('/api/music/:id', (req, res) => {
     
     
     res.send("Didn't delete the song")
@@ -214,6 +245,6 @@ app.delete('/api/delete/:id', (req, res) => {
 
 
 
-app.listen(4000, () => { 
-    console.log('app listening on port 4000\nhttp://localhost:4000'); 
+app.listen(3000, () => { 
+    console.log('app listening on port 3000\nhttp://localhost:3000'); 
 });
