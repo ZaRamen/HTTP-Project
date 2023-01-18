@@ -136,10 +136,15 @@ let music = [
 
 // uses the index as the value of the id
 // adds a unique id to each of the elements in the array
-music = music.map((obj, index) =>
+function setIndexes()
 {
-    return ({id: index + 1, ...obj})
-})
+    music = music.map((obj, index) =>
+    {
+        return ({id: index + 1, ...obj})
+    })
+}
+
+setIndexes();
 
 
 
@@ -285,10 +290,17 @@ app.delete('/api/music/:id', (req, res) => {
         return;
     }
     let objIndex = music.indexOf(song);
+    
+    // delete the song at that index, second param means # of deletions
     music.splice(objIndex, 1);
     
-    res.status(200).send("Song deleted successfully");
+    //updates each song with their new id
+    music.forEach((obj, index) =>
+    {
+        obj.id = index + 1;
+    })
 
+    res.status(200).send("Song deleted successfully");
 
 });
 
