@@ -3,12 +3,15 @@ application and server utility, API platform
 */
 
 /**
- * 1) Programs communicate from the front end to the backend server. This allows the front end to alter the backend based
- * on the data sent to the server. 
+ * 1) This program allows the front end to communicate with the backend server. This allows the front end to first talk to the
+ *    backend server to get data or change existing data. This software allows us to store and alter data about music.
+ *    The GET request allows us to display a specific song based on the id or all the songs. The PUT request allows us to alter
+ *    the existing data. The POST request allows us to add new data to the existing data. The DELETE request allows us to delete
+ *    an existing song from the data.
  * 2) This project taught me how the front end can talk to the backend and how each of the essential http requests work. 
- * (GET, POST, PUT, DELETE)
+ *    (GET, POST, PUT, DELETE)
  * 3) This project can be further extended to use an actual database such as mongodb. We can use this database to store
- * user information and load the user's unique music list.
+ *    user information and load the user's unique music list.
  */
 const express = require('express');
 const app = express();
