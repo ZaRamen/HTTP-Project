@@ -157,13 +157,13 @@ app.get('/api/music', (req, res) => {
 
     // default should be all the songs 
     let musicList = music;
-    if (req.query.month)   
+    if (req.body.month)   
     {
-        musicList = music.filter(s => s.month === req.query.month);
+        musicList = music.filter(s => s.month === req.body.month);
     }
-    else if (req.query.year)
+    else if (req.body.year)
     {
-        musicList = music.filter(s => s.year === req.query.year);
+        musicList = music.filter(s => s.year === req.body.year);
     } 
     
     // if query couldn't find anything
@@ -196,7 +196,11 @@ app.get('/api/music/:id', (req, res) => {
 //=========== ROUTES FOR HTTP POST REQUESTS ==========
 app.post('/api/music', (req, res) => {
 
-  
+    if (!req.body.name || !req.body.genre)
+    {
+        res.status(404).send("Missing name or genre");
+        return;
+    }
 
     if (req.body.name.length < 3)
     {
@@ -210,18 +214,14 @@ app.post('/api/music', (req, res) => {
     }
 
     let song = {
+        id: music.length + 1,
         name: req.body.name,
         genre: req.body.genre
     }
-    music.push(
-        song
-    );
-
-    setIndexes();
+    music.push(song);
 
 
-    res.send(music[music.length - 1]);
-
+    res.status(200).send(song);
 
 });
 
@@ -231,6 +231,26 @@ app.post('/api/music', (req, res) => {
 
 app.put('/api/music/:id', (req, res) => {
 
+    if (!req.body.name || !req.body.genre)
+    {
+        res.status(404).send("Missing name or genre");
+        return;
+    }
+    if (req.body.name.length < 3)
+    {
+        res.status(400).send("Name must have more than 3 characters");
+        return;
+    }
+    if (req.body.genre.length < 3)
+    {
+        res.status(400).send("genre must have more than 3 characters");
+        return;
+    }
+
+    music[req.params.id] = {
+        name: req.body.name,
+        genre: req.body.genre,
+    }
    
 
 });
