@@ -204,19 +204,21 @@ app.post('/api/music', (req, res) => {
 
     if (req.body.name.length < 3)
     {
-        res.status(404).send("Name must have more than 3 characters");
+        res.status(404).send("Name must have at least 3 characters");
         return;
     }
     if (req.body.genre.length < 3)
     {
-        res.status(404).send("genre must have more than 3 characters");
+        res.status(404).send("genre must have at least 3 characters");
         return;
     }
 
     let song = {
         id: music.length + 1,
         name: req.body.name,
-        genre: req.body.genre
+        genre: req.body.genre,
+        month: req.body.month ? req.body.month : "Unknown",
+        year: req.body.year ? req.body.year : "Unknown",
     }
     music.push(song);
 
@@ -238,19 +240,25 @@ app.put('/api/music/:id', (req, res) => {
     }
     if (req.body.name.length < 3)
     {
-        res.status(400).send("Name must have more than 3 characters");
+        res.status(400).send("Name must have at least 3 characters");
         return;
     }
     if (req.body.genre.length < 3)
     {
-        res.status(400).send("genre must have more than 3 characters");
+        res.status(400).send("genre must have at least 3 characters");
         return;
     }
 
-    music[req.params.id] = {
+    music[req.params.id - 1] = {
+        id: parseInt(req.params.id),
         name: req.body.name,
         genre: req.body.genre,
+        month: req.body.month ? req.body.month : "Unknown",
+        year: req.body.year ? req.body.year : "Unknown",
     }
+    
+
+    res.status(200).send(music[req.params.id - 1]);
    
 
 });
