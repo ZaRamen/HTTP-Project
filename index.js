@@ -2,6 +2,14 @@
 application and server utility, API platform
 */
 
+/**
+ * 1) Programs communicate from the front end to the backend server. This allows the front end to alter the backend based
+ * on the data sent to the server. 
+ * 2) This project taught me how the front end can talk to the backend and how each of the essential http requests work. 
+ * (GET, POST, PUT, DELETE)
+ * 3) This project can be further extended to use an actual database such as mongodb. We can use this database to store
+ * user information and load the user's unique music list.
+ */
 const express = require('express');
 const app = express();
 
@@ -128,16 +136,12 @@ let music = [
 
 // uses the index as the value of the id
 // adds a unique id to each of the elements in the array
-
-function setIndexes()
+music = music.map((obj, index) =>
 {
-     music = music.map((obj, index) =>
-    {
-        return ({id: index + 1, ...obj})
-    })
-}
+    return ({id: index + 1, ...obj})
+})
 
-setIndexes();
+
 
 
 //=========== ROUTES FOR HTTP GET REQUESTS ==========
@@ -238,6 +242,11 @@ app.put('/api/music/:id', (req, res) => {
         res.status(404).send("Missing name or genre");
         return;
     }
+    if (req.params.id < 0 || req.params.id > music.length)
+    {
+        res.status(400).send("Invalid id");
+        return;
+    }
     if (req.body.name.length < 3)
     {
         res.status(400).send("Name must have at least 3 characters");
@@ -267,8 +276,20 @@ app.put('/api/music/:id', (req, res) => {
 //=========== ROUTES FOR HTTP DELETE REQUESTS ==========
 app.delete('/api/music/:id', (req, res) => {
     
+
+    const song = music.find(s => s.id === parseInt(req.params.id));
+
+    if (!song)
+    {
+        res.status(404).send("Couldn't find song");
+        return;
+    }
+    let objIndex = music.indexOf(song);
+    music.splice(objIndex, 1);
     
-    res.send("Didn't delete the song")
+    res.status(200).send("Song deleted successfully");
+
+
 });
 
 
