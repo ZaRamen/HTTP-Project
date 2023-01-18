@@ -160,10 +160,7 @@ app.get('/', (req, res) => {
 
 });
 /**
- * Get a list of songs based on the query parameters on the url
- * Query params are month, year. Can be either one, both, or none
- * Example: http://localhost:4000/api/music/?month=September&year=2011
- * Defaults to all the songs in the current music array
+ * Get a list of songs based on the postman data sent in json format
  */
 app.get('/api/music', (req, res) => {
 
