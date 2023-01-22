@@ -70,7 +70,7 @@ let music = [
         name: "The Four Seasons",
         genre: "classical",
         month: "January",
-        year: "1725 "
+        year: "1725"
     },
     {
   
@@ -166,14 +166,23 @@ app.get('/api/music', (req, res) => {
 
     // default should be all the songs 
     let musicList = music;
-    if (req.body.month)   
+
+    if (!req.body.month || !req.body.year)
     {
-        musicList = music.filter(s => s.month === req.body.month);
+        if (req.body.month)   
+        {
+            musicList = music.filter(s => s.month === req.body.month);
+        }
+        if (req.body.year)
+        {
+            musicList = music.filter(s => s.year === req.body.year);
+        } 
     }
-    else if (req.body.year)
+    else if (req.body.month && req.body.year)
     {
-        musicList = music.filter(s => s.year === req.body.year);
-    } 
+        musicList = music.filter(s => s.month === req.body.month && s.year === req.body.year);
+    }
+   
     
     // if query couldn't find anything
     if (musicList.length == 0)
