@@ -1,7 +1,7 @@
 /*Tools: code editor, browser, command line utility, 
 application and server utility, API platform
 */
-
+// Raymond Lin Pd 7-8 Even 
 /**
  * 1) This program allows the front end to communicate with the backend server. This allows the front end to first talk to the
  *    backend server to get data or change existing data. This software allows us to store and alter data about music.
@@ -220,14 +220,14 @@ app.post('/api/music', (req, res) => {
         return;
     }
 
-    if (req.body.name.length < 3)
+    if (req.body.name.length < 3 || req.body.name.length >= 40)
     {
-        res.status(404).send("Name must have at least 3 characters");
+        res.status(404).send("Name must have at least 3 characters or less than 40 characters ");
         return;
     }
-    if (req.body.genre.length < 3)
+    if (req.body.genre.length < 3 || req.body.genre.length >= 40)
     {
-        res.status(404).send("genre must have at least 3 characters");
+        res.status(404).send("Genre must have at least 3 characters or less than 40 characters ");
         return;
     }
 
@@ -261,14 +261,14 @@ app.put('/api/music/:id', (req, res) => {
         res.status(400).send("Invalid id");
         return;
     }
-    if (req.body.name.length < 3)
+    if (req.body.name.length < 3 || req.body.name.length >= 40)
     {
-        res.status(400).send("Name must have at least 3 characters");
+        res.status(404).send("Name must have at least 3 characters or less than 40 characters ");
         return;
     }
-    if (req.body.genre.length < 3)
+    if (req.body.genre.length < 3 || req.body.genre.length >= 40)
     {
-        res.status(400).send("genre must have at least 3 characters");
+        res.status(404).send("Genre must have at least 3 characters or less than 40 characters ");
         return;
     }
 
