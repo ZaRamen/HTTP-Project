@@ -220,14 +220,14 @@ app.post('/api/music', (req, res) => {
         return;
     }
 
-    if (req.body.name.length < 3)
+    if (req.body.name.length < 3 || req.body.name.length >= 20)
     {
-        res.status(404).send("Name must have at least 3 characters");
+        res.status(404).send("Name must have at least 3 characters or less than 20 characters ");
         return;
     }
-    if (req.body.genre.length < 3)
+    if (req.body.genre.length < 3 || req.body.genre.length >= 20)
     {
-        res.status(404).send("genre must have at least 3 characters");
+        res.status(404).send("Genre must have at least 3 characters or less than 20 characters ");
         return;
     }
 
