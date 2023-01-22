@@ -170,7 +170,7 @@ app.get('/api/music', (req, res) => {
     {
         musicList = music.filter(s => s.month === req.body.month);
     }
-    else if (req.body.year)
+    if (req.body.year)
     {
         musicList = music.filter(s => s.year === req.body.year);
     } 
