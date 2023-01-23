@@ -241,7 +241,7 @@ app.post('/api/music', (req, res) => {
     music.push(song);
 
 
-    res.status(200).send(song);
+    res.status(200).send(music);
 
 });
 
