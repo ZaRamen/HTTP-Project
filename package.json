@@ -1,0 +1,24 @@
+{
+  "name": "http-project",
+  "version": "1.0.0",
+  "description": "Build the back end service of a music app. The app organizes its content by genres: pop, hip hop, rap, classical, rock, jazz, blues, and electronic. \r You are to build the endpoints of this application using HTTP GET, POST, PUT and DELETE requests to simulate how to manage the database. ( no actual database here, just arrays)\r All operations related to music genres will be done by sending HTTP GET, POST, PUT and DELETE requests to this endpoint in order to get, create, update and detele data.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZaRamen/HTTP-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZaRamen/HTTP-Project/issues"
+  },
+  "homepage": "https://github.com/ZaRamen/HTTP-Project#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
